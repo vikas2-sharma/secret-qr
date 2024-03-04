@@ -6,6 +6,14 @@
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
   --background-end-rgb: 255, 255, 255;
+
+  --color-primary: #3d405b;
+  --color-secondary: #f4f1de;
+  --color-tertiary: #f2cc8f;
+
+  --color-primary-hover: #4a4e6f;
+  --color-secondary-hover: #e0dccb;
+  --color-tertiary-hover: #f5d99a;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -13,18 +21,51 @@
     --foreground-rgb: 255, 255, 255;
     --background-start-rgb: 0, 0, 0;
     --background-end-rgb: 0, 0, 0;
+
+    --color-primary: #f4f1de;
+    --color-secondary: #1e1c1a;
+    --color-tertiary: #c19d5a;
+    /* 
+    --color-primary: #1d1f2c;
+    --color-secondary: #2b2927;
+    --color-tertiary: #c19d5a; */
+
+    --color-primary-hover: #e0dccb;
+    --color-secondary-hover: #2b2927;
+    --color-tertiary-hover: #d0b06a;
   }
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  /* color: var(--color-primary); */
+  color: var(--color-primary);
+  background: var(--color-secondary);
+  height: 200lvh;
+  /* overflow-y: hidden; */
 }
+
+h1 {
+  font-size: 6em;
+  font-weight: bold;
+}
+h5 {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+h6 {
+  font-size: 1em;
+  font-weight: bold;
+}
+
+a {
+  font-size: 1em;
+  text-decoration: none;
+  font-weight: bold;
+}
+/* a:hover {
+  color: var(--color-tertiary);
+} */
 
 @layer utilities {
   .text-balance {
