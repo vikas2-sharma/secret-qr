@@ -17,7 +17,7 @@ function HomeContent() {
   };
   return (
     <>
-      <div className="flex flex-col sm:flex-row justify-between w-full ">
+      <div className="flex flex-col sm:flex-row justify-between items-center w-full ">
         <Card className="sm:w-[40lvw] sm:min-h-[70lvh] sm:h-fit relative w-full">
           <h5 className="underline">Enter a text to generate QR</h5>
           <form className="flex flex-col py-4 mt-8" onSubmit={onSubmit}>
@@ -32,7 +32,7 @@ function HomeContent() {
             </Button>
           </form>
         </Card>
-        <Card className="w-[40lvw] min-h-[70lvh] h-fit relative grid place-items-center">
+        <Card className="sm:w-[40lvw] sm:min-h-[70lvh] sm:h-fit relative w-full grid place-items-center">
           <QRViewer value={qrvalue} className="p-4 bg-white" />
         </Card>
       </div>

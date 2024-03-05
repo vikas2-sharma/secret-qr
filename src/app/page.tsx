@@ -8,7 +8,7 @@ export default function Home() {
       <div className="z-10 w-full items-center justify-between font-mono text-sm lg:flex">
         <Header />
 
-        <div className="w-full h-full absolute top-16 p-8">
+        <div className="w-full h-full absolute top-16 sm:p-8 p-4">
           <HomeContent />
         </div>
       </div>
