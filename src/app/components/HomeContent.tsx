@@ -2,8 +2,8 @@
 import React, { FormEvent, useRef, useState } from "react";
 import Card from "./ui/Card";
 import HeaderItem from "./ui/headerItem";
-import Button from "./ui/Button";
 import QRViewer from "./QRViewer";
+import ButtonUI from "./ui/Button";
 
 function HomeContent() {
   const [qrvalue, setQrValue] = useState<string>("");
@@ -27,9 +27,9 @@ function HomeContent() {
               className="outline-none bg-color-secondary-hover border-b-2 border-color-primary p-2 text-color-primary scroll-m-0"
               placeholder=""
             />
-            <Button type="submit" className="self-center mt-8">
+            <ButtonUI type="submit" className="self-center mt-8">
               Generate
-            </Button>
+            </ButtonUI>
           </form>
         </Card>
         <Card className="sm:w-[40lvw] sm:min-h-[70lvh] sm:h-fit relative w-full grid place-items-center">
