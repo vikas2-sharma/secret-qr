@@ -12,7 +12,7 @@ export default function Header() {
         <HeaderItem href="#">Generate</HeaderItem>
         <HeaderItem href="#">Scan</HeaderItem>
         <HeaderItem href="#">History</HeaderItem>
-        <HeaderItem href="#" type="button">
+        <HeaderItem href="/home/login" type="button">
           Login
         </HeaderItem>
       </div>
@@ -21,7 +21,7 @@ export default function Header() {
         id="menu-icon"
         className="row items-center h-full justify-center sm:hidden block"
       >
-        <HeaderItem>Menu</HeaderItem>
+        <HeaderItem href="#">Menu</HeaderItem>
       </div>
     </header>
   );

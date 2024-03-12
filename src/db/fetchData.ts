@@ -1,4 +1,4 @@
-import { sql } from "@vercel/postgres";
+import { db, sql } from "@vercel/postgres";
 
 type sqlType = {
   month: string;
