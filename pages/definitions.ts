@@ -18,5 +18,6 @@ export type loginResponsType = {
 export type userVerifyResult = {
   status: "success" | "fail";
   message: string | undefined;
+  token?: string;
 };
 export const TABLE_NAME = "qrusers";

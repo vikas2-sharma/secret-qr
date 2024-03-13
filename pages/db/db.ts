@@ -7,6 +7,7 @@ import {
   userVerifyResult,
 } from "../definitions";
 import { compare } from "bcrypt";
+import { sign, verify } from "jsonwebtoken";
 
 export async function registerUser(param: registerUserType) {
   const client = await db.connect();
@@ -34,9 +35,18 @@ export async function verifyUser(
       const dbPassword = result.rows.at(0)?.password || "";
       if (dbPassword.length > 0) {
         const passwordResult = await compare(param.password, dbPassword);
-        if (passwordResult)
-          return { status: "success", message: "login success" };
-        else return { status: "fail", message: "Password not matched" };
+        if (passwordResult) {
+          const token = sign(
+            { username: param.username },
+            process.env.JSON_TOKEN_SERCRET || "",
+            { expiresIn: "1h" }
+          );
+          console.log({ token });
+
+          const jwt = verify(token, process.env.JSON_TOKEN_SERCRET || "");
+          console.log({ jwt });
+          return { status: "success", message: "login success", token };
+        } else return { status: "fail", message: "Password not matched" };
       } else {
         return { status: "fail", message: "Password not matched" };
       }

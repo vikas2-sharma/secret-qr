@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { getTableList } from "secret-qr/db/fetchData";
 
-export default async function Card({
+export default function Card({
   children,
   className,
 }: {
