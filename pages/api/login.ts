@@ -1,4 +1,3 @@
-import { compare, hash } from "bcrypt";
 import { NextApiRequest, NextApiResponse } from "next";
 import { loginUserType, userVerifyResult } from "../definitions";
 import { verifyUser } from "../db/db";
