@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { sendJson } from "../apiutils/utils";
 import { registerUserType } from "../definitions";
 import { registerUser } from "../db/db";
+import sendJson from "../../apiutils/utils";
 // import { hash } from "bcrypt";
 
 export default async function handler(

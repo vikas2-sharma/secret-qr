@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { loginUserType, userVerifyResult } from "../definitions";
 import { verifyUser } from "../db/db";
-import { sendJson } from "../apiutils/utils";
 import { serialize } from "cookie";
+import sendJson from "../../apiutils/utils";
 
 export default async function handler(
   req: NextApiRequest,

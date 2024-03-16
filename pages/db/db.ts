@@ -57,3 +57,7 @@ export async function verifyUser(
     return { status: "fail", message: `Something went wrong ${error}` };
   }
 }
+
+export default function getDB() {
+  return db;
+}
