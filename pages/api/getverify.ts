@@ -1,8 +1,8 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { sendJson } from "../apiutils/utils";
 import { parse } from "cookie";
 import { VerifyTokenCookie } from "../definitions";
 import { verify } from "jsonwebtoken";
+import sendJson from "../../apiutils/utils";
 
 export default async function handler(
   req: NextApiRequest,
