@@ -1,4 +1,5 @@
 import { db, sql } from "@vercel/postgres";
+import { headers } from "next/headers";
 
 type sqlType = {
   month: string;
@@ -27,4 +28,9 @@ export async function getUsers() {
   }
   // console.log(table);
   // return table;
+}
+
+export async function getVerified() {
+  const headerCookie = headers();
+  console.log({ headerCookie });
 }

@@ -4,6 +4,7 @@ import { loginUserType, userVerifyResult } from "../definitions";
 import { verifyUser } from "../db/db";
 import { sendJson } from "../apiutils/utils";
 import { serialize } from "cookie";
+import { cookies } from "next/headers";
 
 export default async function handler(
   req: NextApiRequest,
@@ -34,6 +35,8 @@ export default async function handler(
         result.message ? result.message : "Something went wrong"
       );
     } else {
+      const cookieStore = cookies();
+      cookieStore.set("token", result.token || "");
       res.setHeader(
         "Set-Cookie",
         serialize(

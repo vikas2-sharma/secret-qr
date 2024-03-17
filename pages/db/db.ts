@@ -39,12 +39,12 @@ export async function verifyUser(
           const token = sign(
             { username: param.username },
             process.env.JSON_TOKEN_SERCRET || "",
-            { expiresIn: "1h" }
+            { expiresIn: "2h" }
           );
           console.log({ token });
 
-          const jwt = verify(token, process.env.JSON_TOKEN_SERCRET || "");
-          console.log({ jwt });
+          // const jwt = verify(token, process.env.JSON_TOKEN_SERCRET || "");
+          // console.log({ jwt });
           return { status: "success", message: "login success", token };
         } else return { status: "fail", message: "Password not matched" };
       } else {
