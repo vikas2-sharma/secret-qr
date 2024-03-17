@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { registerUserType } from "../definitions";
 import { registerUser } from "../db/db";
 import sendJson from "../../apiutils/utils";
-// import { hash } from "bcrypt";
+import { hash } from "bcrypt";
 
 export default async function handler(
   req: NextApiRequest,
@@ -21,7 +21,8 @@ export default async function handler(
   ) {
     sendJson(res, 400, "6001", "madatory field(s) missing");
   } else {
-    const hashPassword = param.password; //await hash(param.password, 10);
+    // const hashPassword = param.password; //await hash(param.password, 10);
+    const hashPassword = await hash(param.password, 10);
     param.password = hashPassword;
 
     try {

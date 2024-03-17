@@ -8,6 +8,7 @@ import {
 } from "../definitions";
 // import { compare } from "bcrypt";
 import { sign, verify } from "jsonwebtoken";
+import { compare } from "bcrypt";
 
 export async function registerUser(param: registerUserType) {
   const client = await db.connect();
@@ -34,7 +35,8 @@ export async function verifyUser(
     if (result.rowCount > 0) {
       const dbPassword = result.rows.at(0)?.password || "";
       if (dbPassword.length > 0) {
-        const passwordResult = dbPassword; //wait compare(param.password, dbPassword);
+        // const passwordResult = dbPassword; //wait compare(param.password, dbPassword);
+        const passwordResult = await compare(param.password, dbPassword);
         if (passwordResult) {
           const token = sign(
             { username: param.username },
