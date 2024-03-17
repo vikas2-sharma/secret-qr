@@ -37,7 +37,11 @@ export default async function handler(
         "Set-Cookie",
         serialize(
           "User-cookie",
-          JSON.stringify({ user: param.username, token: result.token })
+          JSON.stringify({ user: param.username, token: result.token }),
+          {
+            maxAge: 10 * 24 * 60 * 60 * 1000,
+            httpOnly: true,
+          }
         )
       );
       sendJson(res, 200, "6000", "Login Success");
