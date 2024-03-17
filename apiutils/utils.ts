@@ -1,6 +1,6 @@
 import { NextApiResponse } from "next";
 
-export function sendJson(
+export default function sendJson(
   res: NextApiResponse,
   httpCode: number,
   responseCode: String,

@@ -22,6 +22,10 @@ export type userVerifyResult = {
 };
 export const TABLE_NAME = "qrusers";
 
+export default function definitions() {
+  return null;
+}
+
 export interface VerifyTokenCookie {
   user: string;
   token: string;

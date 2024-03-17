@@ -8,7 +8,7 @@ import React, {
 } from "react";
 import Card from "secret-qr/app/components/ui/Card";
 
-function Page({ children }: { children: ReactNode }) {
+function Page() {
   const [loading, setLoading] = useState(false);
   const onLoginSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -40,7 +40,7 @@ function Page({ children }: { children: ReactNode }) {
       redirect: "follow",
     };
 
-    fetch("http://localhost:3000/api/login", requestOptions)
+    fetch("/api/login", requestOptions)
       .then((response) => response.text())
       .then((result) => {
         console.log(result);

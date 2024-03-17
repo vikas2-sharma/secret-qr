@@ -1,10 +1,9 @@
-import { compare, hash } from "bcrypt";
 import { NextApiRequest, NextApiResponse } from "next";
 import { loginUserType, userVerifyResult } from "../definitions";
 import { verifyUser } from "../db/db";
-import { sendJson } from "../apiutils/utils";
 import { serialize } from "cookie";
 import { cookies } from "next/headers";
+import sendJson from "../../apiutils/utils";
 
 export default async function handler(
   req: NextApiRequest,
@@ -41,7 +40,11 @@ export default async function handler(
         "Set-Cookie",
         serialize(
           "User-cookie",
-          JSON.stringify({ user: param.username, token: result.token })
+          JSON.stringify({ user: param.username, token: result.token }),
+          {
+            maxAge: 10 * 24 * 60 * 60 * 1000,
+            httpOnly: true,
+          }
         )
       );
       sendJson(res, 200, "6000", "Login Success");
