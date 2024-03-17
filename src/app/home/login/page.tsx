@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import React, {
   FormEvent,
   FormEventHandler,
@@ -10,6 +11,7 @@ import Card from "secret-qr/app/components/ui/Card";
 
 function Page() {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const onLoginSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     console.log("handle form");
@@ -45,6 +47,7 @@ function Page() {
       .then((result) => {
         console.log(result);
         setLoading(false);
+        router.replace("/home");
         // history.back();
       })
       .catch((error) => console.error(error));

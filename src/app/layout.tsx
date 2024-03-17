@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { getVerified } from "secret-qr/db/fetchData";
-import { headers } from "next/headers";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,8 +16,6 @@ export default function RootLayout({
   children: React.ReactNode;
   req?: any;
 }>) {
-  const headerCookie = headers();
-  console.log({ headerCookie });
   return (
     <html lang="en">
       <body className={`${inter.className} scrollbar`} style={{ color: "red" }}>

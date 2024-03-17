@@ -30,7 +30,4 @@ export async function getUsers() {
   // return table;
 }
 
-export async function getVerified() {
-  const headerCookie = headers();
-  console.log({ headerCookie });
-}
+export async function getVerified() {}

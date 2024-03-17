@@ -34,22 +34,24 @@ export default async function handler(
         result.message ? result.message : "Something went wrong"
       );
     } else {
-      const cookieStore = cookies();
-      cookieStore.set("token", result.token || "");
+      // const cookieStore = cookies();
+      // cookieStore.set("token", result.token || "");
       res.setHeader(
         "Set-Cookie",
         serialize(
           "User-cookie",
           JSON.stringify({ user: param.username, token: result.token }),
           {
-            maxAge: 10 * 24 * 60 * 60 * 1000,
+            maxAge: 2 * 60 * 60 * 1000,
             httpOnly: true,
+            secure: true,
+            path: "/",
           }
         )
       );
       sendJson(res, 200, "6000", "Login Success");
     }
   } catch (error) {
-    sendJson(res, 401, "6003", "Something went wrong");
+    sendJson(res, 401, "6004", `Something went wrong ${error}`);
   }
 }

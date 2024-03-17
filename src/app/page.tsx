@@ -1,25 +1,28 @@
-import Image from "next/image";
-import Header from "./components/header";
-import HomeContent from "./components/HomeContent";
-import { getTableList, getVerified } from "secret-qr/db/fetchData";
+import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
-  // console.log(process.env.BASEURL);
+  const cookiess = cookies().get("User-cookie")?.value || "";
+  let redirectPath = "/home/login";
 
-  await fetch("http://localhost:3000/api/getverify")
-    .then((res) => {
-      console.log(res);
-      if (res.status == 200) {
-        redirect("/home");
-      } else {
-        redirect("/home/login");
-      }
+  const myHeaders = new Headers();
+  myHeaders.append("User-cookie", cookiess || "");
 
-      // res.json();
-    })
-    .catch((e) => {
-      console.log(e);
-      redirect("/home/login");
+  try {
+    const res = await fetch("http://localhost:3000/api/getverify", {
+      method: "GET",
+      credentials: "include",
+      headers: myHeaders,
     });
+
+    console.log({ status: res.status });
+    if (res.status == 200) redirectPath = "/home";
+    else redirectPath = "/home/login";
+    // redirect("/home", RedirectType.push);
+  } catch (error) {
+    console.log({ error });
+    redirectPath = "/home/login";
+  } finally {
+    redirect(redirectPath);
+  }
 }

@@ -9,25 +9,18 @@ export default async function handler(
   res: NextApiResponse
 ) {
   const cookies = req.headers.cookie || "";
-  console.log(cookies);
-  const parsedCookie = parse(cookies);
-  if (!parsedCookie) {
-    console.log("no cookie ");
-    sendJson(res, 401, "6402", "not logged in");
-    return;
-  }
 
-  if (!parsedCookie["User-cookie"]) {
-    console.log("no cookie ");
-    sendJson(res, 401, "6402", "not logged in");
-    return;
-  }
+  console.log(
+    "headers",
+    JSON.parse(JSON.parse(JSON.stringify(req.headers))["user-cookie"])
+  );
+
   const tokenCookie: VerifyTokenCookie = JSON.parse(
-    parsedCookie["User-cookie"]
+    JSON.parse(JSON.stringify(req.headers))["user-cookie"] || {}
   );
 
   if (!tokenCookie) {
-    console.log("no cookie ");
+    console.log("no cookie 3");
     sendJson(res, 401, "6402", "not logged in");
     return;
   }
