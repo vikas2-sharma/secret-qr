@@ -27,6 +27,6 @@ export default function definitions() {
 }
 
 export interface VerifyTokenCookie {
-  user: string;
-  token: string;
+  user?: string;
+  token?: string;
 }

@@ -47,7 +47,11 @@ function Page() {
       .then((result) => {
         console.log(result);
         setLoading(false);
-        router.replace("/home");
+        router.refresh();
+        setTimeout(() => {
+          router.replace("/home");
+        }, 100);
+        // router.replace("/home");
         // history.back();
       })
       .catch((error) => console.error(error));

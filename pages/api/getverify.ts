@@ -28,7 +28,10 @@ export default async function handler(
   //   console.log({ token: tokenCookie.token });
 
   try {
-    const jwt = verify(tokenCookie.token, process.env.JSON_TOKEN_SERCRET || "");
+    const jwt = verify(
+      tokenCookie.token || "",
+      process.env.JSON_TOKEN_SERCRET || ""
+    );
     console.log("token verified");
     sendJson(res, 200, "6000", "verified");
   } catch (e) {

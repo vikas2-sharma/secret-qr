@@ -49,8 +49,8 @@ body {
   /* color: var(--color-primary); */
   color: var(--color-primary);
   background: var(--color-secondary);
-  height: 200lvh;
   /* overflow-y: hidden; */
+  height: 100lvh;
 }
 
 h1 {

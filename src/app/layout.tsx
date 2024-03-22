@@ -18,7 +18,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} scrollbar`} style={{ color: "red" }}>
+      <body className={`${inter.className} scrollbar`} style={{}}>
         {children}
       </body>
     </html>

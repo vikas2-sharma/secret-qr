@@ -6,16 +6,22 @@ function ButtonUI({
   onClick,
   className,
   type,
+  theme,
 }: {
   children: ReactNode;
-  onClick?: () => {};
+  onClick?: () => void;
   className?: string;
   type?: buttonType;
+  theme?: "light" | "dark";
 }) {
   return (
     <>
       <button
-        className={`bg-color-primary text-color-secondary w-fit px-4 py-3 rounded-md my-2 ${className}`}
+        className={`${
+          theme == undefined || theme == "light"
+            ? "bg-color-primary text-color-secondary"
+            : "bg-color-secondary text-color-primary"
+        } font-bold w-fit px-4 py-3 rounded-md my-2 ${className}`}
         onClick={onClick}
         type={type}
       >
