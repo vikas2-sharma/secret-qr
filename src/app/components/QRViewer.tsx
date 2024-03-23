@@ -11,7 +11,12 @@ function QRViewer({
 }) {
   return (
     <>
-      <QRCode value={value !== undefined ? value : ""} className={className} />
+      {value != undefined && value?.length > 0 ? (
+        <QRCode
+          value={value !== undefined ? value : ""}
+          className={className}
+        />
+      ) : undefined}
     </>
   );
 }
