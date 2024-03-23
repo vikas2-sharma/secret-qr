@@ -5,7 +5,7 @@ import ProfileButton from "./ProfileButton";
 
 export default function Header() {
   const headerList = headers();
-  console.log({ headerList });
+  // console.log({ headerList });
 
   const cookieList = cookies();
   const userCookieString = cookieList.get("User-cookie")?.value || "";
@@ -14,8 +14,8 @@ export default function Header() {
     userCookie = JSON.parse(userCookieString);
   } catch (e) {}
 
-  console.log({ userCookieString });
-  console.log({ userCookie });
+  // console.log({ userCookieString });
+  // console.log({ userCookie });
   return (
     <header className="w-full bg-[var(--color-primary)] h-16 text-[var(--color-secondary)] px-6 flex items-center justify-between fixed top-0 overflow-hidden z-50">
       <h5 className="ms-0 sm:ms-8">SecretQR</h5>

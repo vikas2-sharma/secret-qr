@@ -9,6 +9,14 @@ import {
 // import { compare } from "bcrypt";
 import { sign, verify } from "jsonwebtoken";
 import { compare } from "bcrypt";
+import {
+  createCipheriv,
+  generateKey,
+  publicEncrypt,
+  randomFill,
+  randomInt,
+  randomUUID,
+} from "crypto";
 
 export async function registerUser(param: registerUserType) {
   const client = await db.connect();
@@ -62,4 +70,38 @@ export async function verifyUser(
 
 export default function getDB() {
   return db;
+}
+
+export async function saveQRData(rawData: string, user: string) {
+  const client = await db.connect();
+  console.log({ rawData, user });
+  try {
+    const accessUsers: string[] = [user];
+    const query = `
+    INSERT INTO qrcodes (createdby, qrdata, decryptionkey, accessuser) 
+    VALUES ($1, $2, $3, $4)`;
+
+    const key = await generatKeyLocal();
+
+    // commented for now
+    const result = await client.query(query, [user, rawData, key, accessUsers]);
+    console.log("insert result: ");
+  } catch (e) {
+    console.log("error storing data", e);
+  }
+}
+
+export function generatKeyLocal() {
+  return new Promise<string>((resolve, reject) => {
+    const key = generateKey("aes", { length: 128 }, (error, key) => {
+      if (error) {
+        reject(error);
+      }
+
+      const hexKey = key.export().toString("hex");
+      console.log(hexKey);
+      resolve(hexKey);
+    });
+    console.log({ key });
+  });
 }
