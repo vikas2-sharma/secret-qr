@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 
-function Page({ children }: { children: ReactNode }) {
+function Page() {
   return <div>History</div>;
 }
 

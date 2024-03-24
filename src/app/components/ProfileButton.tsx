@@ -1,10 +1,7 @@
 "use client";
 import React, { FormEvent, useState } from "react";
-import HeaderItem from "./ui/headerItem";
 import ButtonUI from "./ui/Button";
-import ReactModal from "react-modal";
 import Card from "./ui/Card";
-import Popup from "reactjs-popup";
 import Modal from "./ui/Modal";
 import { useRouter } from "next/navigation";
 // import { useRouter } from "next/router";
