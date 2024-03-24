@@ -30,3 +30,11 @@ export interface VerifyTokenCookie {
   user?: string;
   token?: string;
 }
+
+export const ENCRYPT_ALGO = "aes-128-ccm";
+export const AUTH_TAG_LEGTH = 16;
+
+export interface EncryptedData {
+  encryptValue: string;
+  authTag: string;
+}
