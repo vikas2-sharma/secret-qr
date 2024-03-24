@@ -38,3 +38,8 @@ export interface EncryptedData {
   encryptValue: string;
   authTag: string;
 }
+export interface SaveQRResponseModel {
+  encryptedValue: string;
+  result: "success" | "failed";
+  errorMessage?: string;
+}

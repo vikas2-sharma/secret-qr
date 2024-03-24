@@ -3,6 +3,7 @@ import {
   AUTH_TAG_LEGTH,
   ENCRYPT_ALGO,
   EncryptedData,
+  SaveQRResponseModel,
   TABLE_NAME,
   loginResponsType,
   loginUserType,
@@ -56,7 +57,7 @@ export async function verifyUser(
             process.env.JSON_TOKEN_SERCRET || "",
             { expiresIn: "2h" }
           );
-          console.log({ token });
+          // console.log({ token });
 
           // const jwt = verify(token, process.env.JSON_TOKEN_SERCRET || "");
           // console.log({ jwt });
@@ -77,9 +78,12 @@ export default function getDB() {
   return db;
 }
 
-export async function saveQRData(rawData: string, user: string) {
+export async function saveQRData(
+  rawData: string,
+  user: string
+): Promise<SaveQRResponseModel> {
   const client = await db.connect();
-  console.log({ rawData, user });
+  // console.log({ rawData, user });
   try {
     const accessUsers: string[] = [user];
     const query = `
@@ -89,8 +93,7 @@ export async function saveQRData(rawData: string, user: string) {
     const key = await generatKeyLocal();
     const iv = generateIV();
 
-    console.log({ iv });
-    // commented for now
+    // console.log({ iv });
 
     const encryptedData = encryptText(rawData, key, iv);
 
@@ -104,15 +107,29 @@ export async function saveQRData(rawData: string, user: string) {
       iv,
       encryptedData.authTag,
     ]);
-    console.log("insert result: " + !!result);
-  } catch (e) {
-    console.log("error storing data", e);
+    // console.log("insert result: " + !!result);
+    if (!!result) {
+      return { encryptedValue: encryptedData.encryptValue, result: "success" };
+    } else {
+      return {
+        encryptedValue: "",
+        result: "success",
+        errorMessage: "something went wrong",
+      };
+    }
+  } catch (e: any) {
+    // console.log("error storing data", e);
+    return {
+      encryptedValue: "",
+      result: "success",
+      errorMessage: e,
+    };
   }
 }
 
 function encryptText(data: string, key: string, iv: string): EncryptedData {
-  console.log("encryptText");
-  console.log({ data, key, iv });
+  // console.log("encryptText");
+  // console.log({ data, key, iv });
 
   const cipher = createCipheriv(
     ENCRYPT_ALGO,
@@ -126,9 +143,9 @@ function encryptText(data: string, key: string, iv: string): EncryptedData {
   encrypted += cipher.final("hex");
   const authTag = cipher.getAuthTag().toString("hex");
 
-  console.log({ encrypted });
-  console.log({ authTag });
-  console.log({ authTagLength: authTag.length });
+  // console.log({ encrypted });
+  // console.log({ authTag });
+  // console.log({ authTagLength: authTag.length });
   console;
   return { encryptValue: encrypted, authTag: authTag };
   // createCi;
@@ -140,8 +157,8 @@ function decryptText(
   iv: string,
   authTag: string
 ): string | void {
-  console.log("decryptText");
-  console.log({ encText, key, iv });
+  // console.log("decryptText");
+  // console.log({ encText, key, iv });
 
   try {
     const deCipher = createDecipheriv(
@@ -159,7 +176,7 @@ function decryptText(
 
     // Finalize the deCipher
     decrypted = Buffer.concat([decrypted, deCipher.final()]);
-    console.log({ decrypted: decrypted.toString("utf8") });
+    // console.log({ decrypted: decrypted.toString("utf8") });
     return decrypted.toString("hex"); // Return the decrypted data as a string
   } catch (error) {
     console.error("Decryption failed:", error);
@@ -176,17 +193,17 @@ export function generatKeyLocal() {
       }
 
       const hexKey = key.export().toString("hex");
-      console.log(hexKey);
-      console.log("hexKey length: ", hexKey.length);
+      // console.log(hexKey);
+      // console.log("hexKey length: ", hexKey.length);
       resolve(hexKey);
     });
-    console.log({ key });
+    // console.log({ key });
   });
 }
 
 export function generateIV() {
   const random = randomBytes(8);
   const iv = random.toString("hex");
-  console.log("iv length: ", iv.length);
+  // console.log("iv length: ", iv.length);
   return iv;
 }

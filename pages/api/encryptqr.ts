@@ -3,7 +3,10 @@ import sendJson from "../../apiutils/utils";
 import { VerifyTokenCookie } from "../definitions";
 import { saveQRData } from "../db/db";
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
   const body = req.body;
   const cookie = req.cookies;
   console.log({ body });
@@ -15,7 +18,17 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
 
   console.log({ userCookie });
 
-  saveQRData(body.rawqr, userCookie.user || "");
+  const result = await saveQRData(body.rawqr, userCookie.user || "");
+  console.log({ result });
 
-  sendJson(res, 200, "6000", "OK");
+  if (result.result == "success") {
+    res.statusCode = 200;
+    res.json({
+      code: "6000",
+      message: "encrypted QR generated successfully",
+      encryptedqr: result.encryptedValue,
+    });
+
+    // sendJson(res, 200, "6000", "OK");
+  }
 }
