@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { parse } from "cookie";
 import { VerifyTokenCookie } from "../definitions";
 import { verify } from "jsonwebtoken";
-import sendJson from "../../apiutils/utils";
+import sendJson, { emptyJson, userCookieField } from "../../apiutils/utils";
 
 export default async function handler(
   req: NextApiRequest,
@@ -12,11 +12,13 @@ export default async function handler(
 
   console.log(
     "headers",
-    JSON.parse(JSON.parse(JSON.stringify(req.headers))["user-cookie"])
+    JSON.parse(
+      JSON.parse(JSON.stringify(req.headers))[userCookieField] || emptyJson
+    )
   );
 
   const tokenCookie: VerifyTokenCookie = JSON.parse(
-    JSON.parse(JSON.stringify(req.headers))["user-cookie"] || {}
+    JSON.parse(JSON.stringify(req.headers))[userCookieField] || emptyJson
   );
 
   if (!tokenCookie) {

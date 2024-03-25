@@ -9,3 +9,7 @@ export default function sendJson(
   res.statusCode = httpCode;
   res.json({ code: responseCode, message: responseMessage });
 }
+
+export const userCookieField = "User-cookie";
+
+export const emptyJson = "{}";

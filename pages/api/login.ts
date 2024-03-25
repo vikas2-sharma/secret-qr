@@ -3,7 +3,7 @@ import { loginUserType, userVerifyResult } from "../definitions";
 import { verifyUser } from "../db/db";
 import { serialize } from "cookie";
 import { cookies } from "next/headers";
-import sendJson from "../../apiutils/utils";
+import sendJson, { userCookieField } from "../../apiutils/utils";
 
 export default async function handler(
   req: NextApiRequest,
@@ -39,7 +39,7 @@ export default async function handler(
       res.setHeader(
         "Set-Cookie",
         serialize(
-          "User-cookie",
+          userCookieField,
           JSON.stringify({ user: param.username, token: result.token }),
           {
             maxAge: 2 * 60 * 60 * 1000,

@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import sendJson from "../../apiutils/utils";
+import sendJson, { emptyJson, userCookieField } from "../../apiutils/utils";
 import { VerifyTokenCookie } from "../definitions";
 import { saveQRData } from "../db/db";
 
@@ -13,7 +13,7 @@ export default async function handler(
   // console.log({ cookie });
 
   const userCookie: VerifyTokenCookie = JSON.parse(
-    cookie["User-cookie"] || "{}"
+    cookie[userCookieField] || emptyJson
   );
 
   console.log({ userCookie });

@@ -2,13 +2,14 @@ import { cookies, headers } from "next/headers";
 import HeaderItem from "./ui/headerItem";
 import { VerifyTokenCookie } from "../../../pages/definitions";
 import ProfileButton from "./ProfileButton";
+import { emptyJson, userCookieField } from "../../../apiutils/utils";
 
 export default function Header() {
   const headerList = headers();
   // console.log({ headerList });
 
   const cookieList = cookies();
-  const userCookieString = cookieList.get("User-cookie")?.value || "";
+  const userCookieString = cookieList.get(userCookieField)?.value || emptyJson;
   let userCookie: VerifyTokenCookie = { user: undefined, token: undefined };
   try {
     userCookie = JSON.parse(userCookieString);
