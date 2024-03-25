@@ -1,6 +1,5 @@
 import React from "react";
 import QRCode from "react-qr-code";
-import Card from "./ui/Card";
 
 function QRViewer({
   value,
@@ -9,6 +8,7 @@ function QRViewer({
   value: string | undefined;
   className?: string;
 }) {
+  console.log("qr viewer :" + value);
   return (
     <>
       {value != undefined && value?.length > 0 ? (

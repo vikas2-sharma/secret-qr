@@ -54,3 +54,7 @@ export interface ApiResponse {
 export interface LoginReponse extends ApiResponse {
   readonly token?: string;
 }
+
+export interface QrResponse extends ApiResponse {
+  readonly encryptedqr?: string;
+}
