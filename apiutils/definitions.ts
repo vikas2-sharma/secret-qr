@@ -20,6 +20,7 @@ export type userVerifyResult = {
   message: string | undefined;
   token?: string;
 };
+
 export const TABLE_NAME = "qrusers";
 
 export default function definitions() {
@@ -42,4 +43,14 @@ export interface SaveQRResponseModel {
   encryptedValue: string;
   result: "success" | "failed";
   errorMessage?: string;
+}
+
+export interface ApiResponse {
+  readonly code: string;
+  readonly message: string;
+  // token?: string;
+}
+
+export interface LoginReponse extends ApiResponse {
+  readonly token?: string;
 }

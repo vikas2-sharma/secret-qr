@@ -9,7 +9,7 @@ import {
   loginUserType,
   registerUserType,
   userVerifyResult,
-} from "../definitions";
+} from "../../apiutils/definitions";
 // import { compare } from "bcrypt";
 import { sign, verify } from "jsonwebtoken";
 import { compare } from "bcrypt";

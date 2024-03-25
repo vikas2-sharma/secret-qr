@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { registerUserType } from "../definitions";
+import { registerUserType } from "../../apiutils/definitions";
 import { registerUser } from "../db/db";
 import sendJson from "../../apiutils/utils";
 import { hash } from "bcrypt";

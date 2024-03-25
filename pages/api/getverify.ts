@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { parse } from "cookie";
-import { VerifyTokenCookie } from "../definitions";
+import { VerifyTokenCookie } from "../../apiutils/definitions";
 import { verify } from "jsonwebtoken";
 import sendJson, { emptyJson, userCookieField } from "../../apiutils/utils";
 

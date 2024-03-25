@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { loginUserType, userVerifyResult } from "../definitions";
+import { loginUserType, userVerifyResult } from "../../apiutils/definitions";
 import { verifyUser } from "../db/db";
 import { serialize } from "cookie";
 import { cookies } from "next/headers";

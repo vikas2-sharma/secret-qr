@@ -1,6 +1,6 @@
 import { cookies, headers } from "next/headers";
 import HeaderItem from "./ui/headerItem";
-import { VerifyTokenCookie } from "../../../pages/definitions";
+import { VerifyTokenCookie } from "../../../apiutils/definitions";
 import ProfileButton from "./ProfileButton";
 import { emptyJson, userCookieField } from "../../../apiutils/utils";
 

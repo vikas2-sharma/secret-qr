@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import sendJson, { emptyJson, userCookieField } from "../../apiutils/utils";
-import { VerifyTokenCookie } from "../definitions";
+import { VerifyTokenCookie } from "../../apiutils/definitions";
 import { saveQRData } from "../db/db";
 
 export default async function handler(

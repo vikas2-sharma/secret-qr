@@ -4,6 +4,8 @@ import ButtonUI from "./ui/Button";
 import Card from "./ui/Card";
 import Modal from "./ui/Modal";
 import { useRouter } from "next/navigation";
+import { fetchJson } from "secret-qr/net/netUtils";
+import { ApiResponse } from "../../../apiutils/definitions";
 // import { useRouter } from "next/router";
 // import { useRouter } from "next/router";
 
@@ -22,42 +24,22 @@ function ProfileButton({ user }: { user?: string }) {
     console.log(username);
     console.log(password);
     setLoading(true);
-    //********* */
 
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    const raw = JSON.stringify({
-      username: username,
-      password: password,
-    });
-
-    const requestOptions: RequestInit = {
-      method: "POST",
-      headers: myHeaders,
-      body: raw,
-      redirect: "follow",
-    };
-
-    fetch("/api/login", requestOptions)
-      .then((response) => response.text())
-      .then((result) => {
-        console.log(result);
+    fetchJson("/api/login", { username: username, password: password })
+      .then((result: ApiResponse) => {
         setLoading(false);
-        // isOpen(false);
-        setOpen(false);
-        router.refresh();
-
-        // setTimeout(() => {
-
-        //   //   router.replace("/home");
-        // }, 10);
-        // router.replace("/home");
-        // history.back();
+        if (result.code === "6000") {
+          setOpen(false);
+          router.refresh();
+          console.log(result);
+        } else {
+          alert("Login failed: " + result.message);
+        }
       })
-      .catch((error) => console.error(error));
-
-    //********* */
+      .catch((error) => {
+        setLoading(false);
+        alert("Login failed: " + error);
+      });
   };
 
   const handleProfile = () => {
