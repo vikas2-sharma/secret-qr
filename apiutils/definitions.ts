@@ -48,7 +48,6 @@ export interface SaveQRResponseModel {
 export interface ApiResponse {
   readonly code: string;
   readonly message: string;
-  // token?: string;
 }
 
 export interface LoginReponse extends ApiResponse {
@@ -58,3 +57,23 @@ export interface LoginReponse extends ApiResponse {
 export interface QrResponse extends ApiResponse {
   readonly encryptedqr?: string;
 }
+
+export interface DecryptQrResponse extends ApiResponse {
+  readonly decryptedqr?: string;
+}
+export interface DecryptQRReq {
+  readonly qrdata: string;
+}
+
+export interface DbQrDataModel {
+  uuid: string;
+  createdby: string;
+  qrdata: string;
+  decryptionkey: string;
+  accessuser: string;
+  iv: string;
+  authtag: string;
+}
+
+export const HTTP_METHOD_NOT_ALLOWED = 401;
+export const HTTP_OK = 200;

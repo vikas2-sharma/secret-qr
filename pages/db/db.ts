@@ -1,6 +1,9 @@
 import { db, sql } from "@vercel/postgres";
 import {
   AUTH_TAG_LEGTH,
+  ApiResponse,
+  DbQrDataModel,
+  DecryptQrResponse,
   ENCRYPT_ALGO,
   EncryptedData,
   SaveQRResponseModel,
@@ -156,7 +159,7 @@ function decryptText(
   key: string,
   iv: string,
   authTag: string
-): string | void {
+): string | undefined {
   // console.log("decryptText");
   // console.log({ encText, key, iv });
 
@@ -177,11 +180,10 @@ function decryptText(
     // Finalize the deCipher
     decrypted = Buffer.concat([decrypted, deCipher.final()]);
     // console.log({ decrypted: decrypted.toString("utf8") });
-    return decrypted.toString("hex"); // Return the decrypted data as a string
+    return decrypted.toString("utf-8"); // Return the decrypted data as a string
   } catch (error) {
     console.error("Decryption failed:", error);
-    throw new Error("error");
-    return; // Return undefined or handle the error as needed
+    return undefined;
   }
 }
 
@@ -206,4 +208,32 @@ export function generateIV() {
   const iv = random.toString("hex");
   // console.log("iv length: ", iv.length);
   return iv;
+}
+
+export async function getDecryptQr(qrData: string): Promise<DecryptQrResponse> {
+  const client = await db.connect();
+  try {
+    const query = `SELECT * FROM qrcodes WHERE qrdata = $1`;
+
+    const queryResult = await client.query(query, [qrData]);
+    const qrResult: DbQrDataModel = queryResult.rows.at(0);
+
+    //TODO: add check for accessuser key to check
+    const decryptedQr = decryptText(
+      qrResult.qrdata,
+      qrResult.decryptionkey,
+      qrResult.iv,
+      qrResult.authtag
+    );
+
+    console.log({ decryptedQr });
+    return {
+      code: "6000",
+      message: "qr decrypted successfully",
+      decryptedqr: decryptedQr,
+    };
+  } catch (error: unknown) {
+    console.log({ error: error });
+    return { code: "6004", message: `something went wrong: ${error}` };
+  }
 }

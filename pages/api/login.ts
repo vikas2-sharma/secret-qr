@@ -1,5 +1,9 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { loginUserType, userVerifyResult } from "../../apiutils/definitions";
+import {
+  HTTP_METHOD_NOT_ALLOWED,
+  loginUserType,
+  userVerifyResult,
+} from "../../apiutils/definitions";
 import { verifyUser } from "../db/db";
 import { serialize } from "cookie";
 import { cookies } from "next/headers";
@@ -29,7 +33,7 @@ export default async function handler(
     if (result && result.status == "fail") {
       sendJson(
         res,
-        401,
+        HTTP_METHOD_NOT_ALLOWED,
         "6003",
         result.message ? result.message : "Something went wrong"
       );
