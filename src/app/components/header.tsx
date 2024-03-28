@@ -25,7 +25,7 @@ export default function Header() {
         id="options"
         className="row items-center h-full justify-center sm:flex hidden"
       >
-        <HeaderItem href="#">Generate</HeaderItem>
+        <HeaderItem href="/home">Generate</HeaderItem>
         <HeaderItem href="/scan">Scan</HeaderItem>
         <HeaderItem href="/history">History</HeaderItem>
         <ProfileButton user={userCookie.user} />

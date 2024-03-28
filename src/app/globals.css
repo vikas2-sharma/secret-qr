@@ -51,6 +51,7 @@ body {
   background: var(--color-secondary);
   /* overflow-y: hidden; */
   height: 100lvh;
+  overflow-x: hidden;
 }
 
 h1 {
