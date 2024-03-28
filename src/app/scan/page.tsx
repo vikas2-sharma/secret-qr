@@ -8,13 +8,14 @@ function Page() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [qrText, setQrText] = useState("");
   let prevResult = "";
+  let qrScanner: QrScanner;
 
   setTimeout(() => {
     console.log(videoRef.current);
 
     if (videoRef.current) {
       const videoEle: HTMLVideoElement = videoRef.current;
-      const qrScanner = new QrScanner(
+      qrScanner = new QrScanner(
         videoEle,
         (result) => {
           if (prevResult != result.data) {
@@ -35,6 +36,17 @@ function Page() {
   }, 100);
 
   const onCapture = () => {};
+
+  useEffect(() => {
+    return () => {
+      console.log(qrScanner);
+      if (qrScanner) {
+        console.log("stop scanning");
+        qrScanner.stop();
+        qrScanner.destroy();
+      }
+    };
+  });
 
   return (
     <div>
