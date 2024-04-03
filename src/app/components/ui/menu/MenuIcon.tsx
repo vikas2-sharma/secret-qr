@@ -30,7 +30,7 @@ function MenuIcon({ color }: { color?: string }) {
       </div>
       <Modal isOpen={isActive} className="place-items-start">
         <div
-          className="pt-16"
+          className="pt-16 animate-menu"
           onClick={() => {
             setActive(!isActive);
           }}
