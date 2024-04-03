@@ -1,8 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { loginUserType, userVerifyResult } from "../definitions";
+import {
+  HTTP_METHOD_NOT_ALLOWED,
+  loginUserType,
+  userVerifyResult,
+} from "../../apiutils/definitions";
 import { verifyUser } from "../db/db";
 import { serialize } from "cookie";
-import sendJson from "../../apiutils/utils";
+import { cookies } from "next/headers";
+import sendJson, { userCookieField } from "../../apiutils/utils";
 
 export default async function handler(
   req: NextApiRequest,
@@ -28,21 +33,29 @@ export default async function handler(
     if (result && result.status == "fail") {
       sendJson(
         res,
-        401,
+        HTTP_METHOD_NOT_ALLOWED,
         "6003",
         result.message ? result.message : "Something went wrong"
       );
     } else {
+      // const cookieStore = cookies();
+      // cookieStore.set("token", result.token || "");
       res.setHeader(
         "Set-Cookie",
         serialize(
-          "User-cookie",
-          JSON.stringify({ user: param.username, token: result.token })
+          userCookieField,
+          JSON.stringify({ user: param.username, token: result.token }),
+          {
+            maxAge: 2 * 60 * 60 * 1000,
+            httpOnly: true,
+            secure: true,
+            path: "/",
+          }
         )
       );
       sendJson(res, 200, "6000", "Login Success");
     }
   } catch (error) {
-    sendJson(res, 401, "6003", "Something went wrong");
+    sendJson(res, 401, "6004", `Something went wrong ${error}`);
   }
 }

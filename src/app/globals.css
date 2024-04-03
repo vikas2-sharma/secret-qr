@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  width: 5px;
+}
+::-webkit-scrollbar-track {
+  background-color: var(--color-tertiary);
+}
+::-webkit-scrollbar-thumb {
+  background-color: var(--color-primary-hover);
+}
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
@@ -40,8 +49,9 @@ body {
   /* color: var(--color-primary); */
   color: var(--color-primary);
   background: var(--color-secondary);
-  height: 200lvh;
   /* overflow-y: hidden; */
+  height: 100lvh;
+  overflow-x: hidden;
 }
 
 h1 {

@@ -1,9 +1,17 @@
 "use client";
-import React, { FormEvent, FormEventHandler, ReactNode, useState } from "react";
+import { useRouter } from "next/navigation";
+import React, {
+  FormEvent,
+  FormEventHandler,
+  ReactNode,
+  useEffect,
+  useState,
+} from "react";
 import Card from "secret-qr/app/components/ui/Card";
 
 function Page() {
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
   const onLoginSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     console.log("handle form");
@@ -39,13 +47,34 @@ function Page() {
       .then((result) => {
         console.log(result);
         setLoading(false);
-        history.back();
+        router.refresh();
+        setTimeout(() => {
+          router.replace("/home");
+        }, 100);
+        // router.replace("/home");
+        // history.back();
       })
       .catch((error) => console.error(error));
 
     //********* */
   };
 
+  // const bodyStyle = document
+  //   .getElementsByTagName("body")[0]
+  //   .getAttribute("style");
+  // console.log({ bodyStyle });
+
+  // useEffect(() => {
+  //   document
+  //     .getElementsByTagName("body")[0]
+  //     .setAttribute("style", `overflow:hidden;${bodyStyle}`);
+
+  //   return () => {
+  //     document
+  //       .getElementsByTagName("body")[0]
+  //       .setAttribute("style", `${bodyStyle}`);
+  //   };
+  // }, []);
   return (
     <>
       <div className="absolute top-0 left-0 w-[100lvw] h-[100lvh] bg-[#000000a6] z-10 grid place-items-center">

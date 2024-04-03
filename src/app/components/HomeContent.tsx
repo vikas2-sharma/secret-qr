@@ -1,20 +1,41 @@
 "use client";
-import React, { FormEvent, useRef, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Card from "./ui/Card";
-import HeaderItem from "./ui/headerItem";
 import QRViewer from "./QRViewer";
 import ButtonUI from "./ui/Button";
+import { fetchJson } from "secret-qr/net/netUtils";
+import { QrResponse } from "../../../apiutils/definitions";
 
 function HomeContent() {
   const [qrvalue, setQrValue] = useState<string>("");
+  const [isLoading, setLoading] = useState<boolean>(false);
   let value: string | undefined;
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const formData = new FormData(event.currentTarget);
-    value = formData.get("qrtext")?.toString();
+    value = formData.get("qrtext")?.toString() || "";
     console.log(formData);
-    setQrValue(value !== undefined ? value : "");
+
+    setLoading(true);
+    fetchJson("/api/encryptqr", { rawqr: value })
+      .then((result: QrResponse) => {
+        console.log(result);
+        setLoading(false);
+        if (result.code === "6000") {
+          console.log("qr generate successfully");
+
+          setQrValue(result.encryptedqr || "");
+          console.log("adssd", qrvalue);
+        } else {
+          alert("QR generate Failed" + result.message);
+        }
+      })
+      .catch((e) => {
+        setLoading(false);
+        alert("QR generate Failed" + e);
+      });
   };
+  console.log({ qrvalue });
   return (
     <>
       <div className="flex flex-col sm:flex-row justify-between items-center w-full ">
@@ -28,7 +49,7 @@ function HomeContent() {
               placeholder=""
             />
             <ButtonUI type="submit" className="self-center mt-8">
-              Generate
+              {isLoading ? "Generating..." : "Generate"}
             </ButtonUI>
           </form>
         </Card>
