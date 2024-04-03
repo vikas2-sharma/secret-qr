@@ -3,6 +3,7 @@ import HeaderItem from "./ui/headerItem";
 import { VerifyTokenCookie } from "../../../apiutils/definitions";
 import ProfileButton from "./ProfileButton";
 import { emptyJson, userCookieField } from "../../../apiutils/utils";
+import MenuIcon from "./ui/menu/MenuIcon";
 
 export default function Header() {
   const headerList = headers();
@@ -15,8 +16,6 @@ export default function Header() {
     userCookie = JSON.parse(userCookieString);
   } catch (e) {}
 
-  // console.log({ userCookieString });
-  // console.log({ userCookie });
   return (
     <header className="w-full bg-[var(--color-primary)] h-16 text-[var(--color-secondary)] px-6 flex items-center justify-between fixed top-0 overflow-hidden z-50">
       <h5 className="ms-0 sm:ms-8">SecretQR</h5>
@@ -33,9 +32,14 @@ export default function Header() {
 
       <div
         id="menu-icon"
-        className="row items-center h-full justify-center sm:hidden block"
+        className="row items-center h-full justify-center sm:hidden flex flex-row-reverse"
       >
-        <HeaderItem href="#">Menu</HeaderItem>
+        <div>
+          <MenuIcon color="#fff" />
+        </div>
+        <div className="mx-4">
+          <ProfileButton user={userCookie.user} />
+        </div>
       </div>
     </header>
   );

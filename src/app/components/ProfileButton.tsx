@@ -62,7 +62,11 @@ function ProfileButton({ user }: { user?: string }) {
           <ButtonUI theme="dark" onClick={openLogin}>
             {"Login"}
           </ButtonUI>
-          <Modal isOpen={isOpen} close={closeLogin}>
+          <Modal
+            isOpen={isOpen}
+            close={closeLogin}
+            className=" grid place-items-center"
+          >
             <Card className="z-[1000] text-color-primary bg-color-secondary transition-all flex flex-col items-center">
               <h6>Login</h6>
               <form onSubmit={onLoginSubmit} className="flex flex-col">
